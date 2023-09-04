@@ -2,6 +2,7 @@ import logging
 import requests
 from constants import URL, CARRIER_ENDPOINT, RATE_ENDPOINT
 from models.Carrier import Carrier
+from models.Rate import Rate
 
 class CarrierAPIClient():
     def __init__(self):
@@ -26,7 +27,7 @@ class CarrierAPIClient():
             response_json = response.json()
             if "error_message" in response_json:
                 raise Exception(response_json)
-            return response_json
+            return Rate(**response_json)
         except Exception as e:
             logging.error(f"An error occurred getting quote for {carrier_code}: {e}")
             return None
