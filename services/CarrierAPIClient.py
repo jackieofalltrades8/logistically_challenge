@@ -17,11 +17,11 @@ class CarrierAPIClient():
 
     def get_quote_for_carrier(self, carrier_code):
         try:
-            response = requests.get(f"{self.url}{self.rate_endpoint}/{carrier_code}")
+            response = requests.get(f"{self.url}{self.rate_endpoint}/{carrier_code}", timeout=8)
             response_json = response.json()
             if "error_message" in response_json:
-                raise Exception
+                raise Exception(response_json)
             return response_json
-        except Exception:
-            logging.error(f"An error occurred getting quote for {carrier_code}: {response_json}")
+        except Exception as e:
+            logging.error(f"An error occurred getting quote for {carrier_code}: {e}")
             return None
