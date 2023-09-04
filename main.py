@@ -8,8 +8,12 @@ logging.basicConfig(level=logging.WARN)
 if __name__ == "__main__":
     logging.debug("in main")
     api_client = CarrierAPIClient()
+
+    # get all carriers
     carriers = api_client.get_carriers()
     logging.info(f"carriers: {carriers}")
+
+    # get quote for each carrier
     quotes = []
     for carrier in carriers:
         carrier_quote = api_client.get_quote_for_carrier(carrier.carrier_code)
