@@ -1,6 +1,7 @@
 import logging
 import requests
 from constants import URL, CARRIER_ENDPOINT, RATE_ENDPOINT
+from models.Carrier import Carrier
 
 class CarrierAPIClient():
     def __init__(self):
@@ -11,7 +12,11 @@ class CarrierAPIClient():
     def get_carriers(self):
         try:
             response = requests.get(f"{self.url}{self.carrier_endpoint}")
-            return response.json()["carriers"]
+            carriers = response.json()["carriers"]
+            carrier_list = [
+                Carrier(**carrier) for carrier in carriers
+            ]
+            return carrier_list
         except Exception:
             return None
 

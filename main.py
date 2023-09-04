@@ -1,8 +1,9 @@
 import logging
 
+from models.Carrier import Carrier
 from services.CarrierAPIClient import CarrierAPIClient
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARN)
 
 if __name__ == "__main__":
     logging.debug("in main")
@@ -11,7 +12,7 @@ if __name__ == "__main__":
     logging.info(f"carriers: {carriers}")
     quotes = []
     for carrier in carriers:
-        carrier_quote = api_client.get_quote_for_carrier(carrier["carrier_code"])
+        carrier_quote = api_client.get_quote_for_carrier(carrier.carrier_code)
         logging.info(f"carrier quote: {carrier_quote}")
         if carrier_quote is not None: quotes.append(carrier_quote)
 
